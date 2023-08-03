@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sarcasm Detection</title>
+    <style>
+        body {
+            background-color: #666666;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .input-text {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+        }
+        
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #ff3333;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .output-text {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 15px;
+            background-color: #333333;
+            color: white;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sarcasm Detection</h1>
+        <label for="inputText">Enter the Tweet</label><br>
+        <input type="text" id="inputText" class="input-text"><br>
+        <button id="submitBtn" class="submit-btn">Submit</button>
+        <div id="output" class="output-text"></div>
+    </div>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            var inputText = document.getElementById("inputText").value;
+            var apiUrl = "EC2_Instace_url_as_it_chages_when_restarted";
+            var apiEndpoint = apiUrl + encodeURIComponent(inputText);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", apiEndpoint, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = xhr.responseText;
+                    document.getElementById("output").innerText = "Output: " + response;
+                }
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+
+</html>
